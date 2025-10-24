@@ -8,7 +8,7 @@ export default function AlertBanner({ level }) {
     }
     return (
       <div className="bg-green-500 text-white p-3 rounded mb-4">
-        ✅ Air quality is good.
+        Air quality is good.
       </div>
     );
   }

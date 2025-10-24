@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: adaptive-air-purifier
+    env: python
+    rootDir: backend
+    buildCommand: |
+      pip install -r requirements.txt
+      cd ..
+      npm install
+      npm run build
+      mv dist backend/dist
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
