@@ -1,35 +1,29 @@
-const API_BASE = "http://127.0.0.1:5050/api";
-
-async function handleResponse(res) {
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Request failed");
-  return data;
-}
+const BASE_URL = import.meta.env.VITE_API_URL || "";
 
 export async function getLiveReadings() {
-  const res = await fetch(`${API_BASE}/live`);
-  return handleResponse(res);
+  const res = await fetch(`${BASE_URL}/api/live`);
+  return res.json();
 }
 
 export async function getHistory() {
-  const res = await fetch(`${API_BASE}/history`);
-  return handleResponse(res);
+  const res = await fetch(`${BASE_URL}/api/history`);
+  return res.json();
 }
 
 export async function setFanSpeed(speed) {
-  const res = await fetch(`${API_BASE}/purifier/fan`, {
+  const res = await fetch(`${BASE_URL}/api/fan-speed`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ speed }),
   });
-  return handleResponse(res);
+  return res.json();
 }
 
-export async function setAutoMode(auto) {
-  const res = await fetch(`${API_BASE}/purifier/auto`, {
+export async function setAutoMode(isAuto) {
+  const res = await fetch(`${BASE_URL}/api/auto-mode`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ auto }),
+    body: JSON.stringify({ auto: isAuto }),
   });
-  return handleResponse(res);
+  return res.json();
 }
